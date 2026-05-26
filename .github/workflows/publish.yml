@@ -60,4 +60,4 @@ jobs:
       - name: Publish to npm
         run: npm publish --access public --provenance
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.UI_KIT_LESSON_26_05_GH }}
+          NODE_AUTH_TOKEN: ${{ secrets.UI_KIT_LESSON_26_05 }}
