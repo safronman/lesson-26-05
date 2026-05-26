@@ -1,22 +1,28 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { Button as BaseButton } from "@base-ui/react/button";
+import clsx from "clsx";
 import styles from "./Buttons.module.css";
 
 type ButtonVariant = "primary" | "secondary" | "outline" | "text";
 
 type ButtonProps = {
-  children: ReactNode;
   variant?: ButtonVariant;
   fullWidth?: boolean;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+  className?: BaseButton.Props["className"];
+} & Omit<BaseButton.Props, "className">;
 
-export function Button({ children, variant = "primary", fullWidth = false, className = "", ...props }: ButtonProps) {
-  const classes = [styles.button, styles[variant], fullWidth ? styles.fullWidth : "", className]
-    .filter(Boolean)
-    .join(" ");
+function getClassName(
+  state: BaseButton.State,
+  variant: ButtonVariant,
+  fullWidth: boolean,
+  className: ButtonProps["className"],
+) {
+  const externalClassName = typeof className === "function" ? className(state) : className;
 
+  return clsx(styles.button, styles[variant], fullWidth && styles.fullWidth, externalClassName);
+}
+
+export function Button({ variant = "primary", fullWidth = false, className, type = "button", ...props }: ButtonProps) {
   return (
-    <button className={classes} type="button" {...props}>
-      {children}
-    </button>
+    <BaseButton className={(state) => getClassName(state, variant, fullWidth, className)} type={type} {...props} />
   );
 }

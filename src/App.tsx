@@ -6,6 +6,7 @@ function App() {
   return (
     <main className={styles.page}>
       <Button variant="secondary">Button</Button>
+      <Button variant="primary">Button 222222222222</Button>
       <RadioGroup
         defaultValue="first"
         name="ui-kit-radio"
