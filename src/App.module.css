@@ -1,9 +1,9 @@
 .page {
   min-height: 100vh;
   padding: 48px;
-  color: #ffffff;
-  background: #0d0d0d;
-  font-family: Inter, system-ui, sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-surface-page);
+  font-family: var(--font-family-primary);
 }
 
 .header {
@@ -21,7 +21,7 @@
 
 .subtitle {
   margin: 0;
-  color: #8d9094;
+  color: var(--color-text-secondary);
   font-size: 16px;
   line-height: 24px;
 }
@@ -39,7 +39,7 @@
 }
 
 .label {
-  color: #edf3fa;
+  color: var(--color-light-500);
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
