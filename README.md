@@ -58,7 +58,10 @@ pnpm pack --dry-run
 
 ## Release
 
-Releases are versioned with npm and git tags. Use semver:
+Releases are published by GitHub Actions when a git tag like `v0.1.0` is pushed.
+Add an npm automation token to the repository secrets as `NPM_TOKEN` before the first release.
+
+Use semver:
 
 - `patch` for bug fixes, for example `0.1.1`
 - `minor` for backward-compatible components or APIs, for example `0.2.0`
@@ -72,7 +75,6 @@ pnpm build
 git add .
 git commit -m "Prepare npm package"
 git tag v0.1.0
-npm publish --access public
 git push
 git push --tags
 ```
@@ -83,9 +85,11 @@ Next releases:
 pnpm lint
 pnpm build
 npm version patch
-npm publish --access public
 git push
 git push --tags
 ```
 
 Use `npm version minor` or `npm version major` when the release type requires it.
+
+The publish workflow verifies that the pushed tag matches `package.json`, builds the package,
+checks package contents with `pnpm pack --dry-run`, and publishes to npm with provenance.
