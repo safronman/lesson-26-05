@@ -57,5 +57,14 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "imports": {
+    "#*": [
+      "./*",
+      "./*.ts",
+      "./*.tsx",
+      "./*.js",
+      "./*.jsx"
+    ]
   }
 }

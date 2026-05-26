@@ -1,4 +1,6 @@
-import type { Preview } from "@storybook/react-vite";
+import addonDocs from "@storybook/addon-docs";
+import addonA11y from "@storybook/addon-a11y";
+import { definePreview } from "@storybook/react-vite";
 import "../src/styles/tokens.css";
 import "../src/index.css";
 import { initialize, mswLoader } from "msw-storybook-addon";
@@ -6,8 +8,9 @@ import { mswHandlers } from "./msw-handlers";
 
 initialize({ onUnhandledRequest: "bypass" });
 
-const preview: Preview = {
+export default definePreview({
   loaders: [mswLoader],
+
   parameters: {
     controls: {
       matchers: {
@@ -27,6 +30,6 @@ const preview: Preview = {
       handlers: mswHandlers,
     },
   },
-};
 
-export default preview;
+  addons: [addonA11y(), addonDocs()]
+});

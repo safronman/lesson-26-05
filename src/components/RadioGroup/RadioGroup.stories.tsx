@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import preview from "#.storybook/preview";
 import { expect } from "storybook/test";
 import { RadioGroup, RadioGroupItem } from "./RadioGroup";
 
-const meta = {
+const meta = preview.meta({
   component: RadioGroup,
   subcomponents: { RadioGroupItem },
   tags: ["autodocs", "ai-generated"],
@@ -35,12 +35,9 @@ const meta = {
       description: "Отключает всю группу выбора.",
     },
   },
-} satisfies Meta<typeof RadioGroup>;
+});
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const DefaultSelection: Story = {
+export const DefaultSelection = meta.story({
   parameters: {
     docs: {
       description: {
@@ -62,9 +59,9 @@ export const DefaultSelection: Story = {
   play: async ({ canvas }) => {
     await expect(canvas.getByRole("radio", { name: /email/i })).toHaveAttribute("aria-checked", "true");
   },
-};
+});
 
-export const WithDisabledOption: Story = {
+export const WithDisabledOption = meta.story({
   parameters: {
     docs: {
       description: {
@@ -85,9 +82,9 @@ export const WithDisabledOption: Story = {
       </>
     ),
   },
-};
+});
 
-export const Horizontal: Story = {
+export const Horizontal = meta.story({
   parameters: {
     docs: {
       description: {
@@ -109,4 +106,4 @@ export const Horizontal: Story = {
       </>
     ),
   },
-};
+});

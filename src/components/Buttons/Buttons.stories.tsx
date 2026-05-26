@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import preview from "#.storybook/preview";
 import { expect } from "storybook/test";
 import { Button } from "./Buttons";
 
-const meta = {
+const meta = preview.meta({
   component: Button,
   tags: ["autodocs", "ai-generated"],
   parameters: {
     docs: {
       description: {
         component:
-          "Button - базовый интерактивный компонент для действий пользователя. Поддерживает визуальные варианты, состояние disabled, растягивание на всю ширину и безопасный `type=\"button\"` по умолчанию.",
+          'Button - базовый интерактивный компонент для действий пользователя. Поддерживает визуальные варианты, состояние disabled, растягивание на всю ширину и безопасный `type="button"` по умолчанию.',
       },
     },
   },
@@ -46,12 +46,9 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof Button>;
+});
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Primary: Story = {
+export const Primary = meta.story({
   parameters: {
     docs: {
       description: {
@@ -65,9 +62,9 @@ export const Primary: Story = {
   play: async ({ canvas }) => {
     await expect(canvas.getByRole("button", { name: /create lesson/i })).toHaveAttribute("type", "button");
   },
-};
+});
 
-export const Secondary: Story = {
+export const Secondary = meta.story({
   parameters: {
     docs: {
       description: {
@@ -79,9 +76,9 @@ export const Secondary: Story = {
     children: "Cancel",
     variant: "secondary",
   },
-};
+});
 
-export const Outline: Story = {
+export const Outline = meta.story({
   parameters: {
     docs: {
       description: {
@@ -93,9 +90,9 @@ export const Outline: Story = {
     children: "Preview",
     variant: "outline",
   },
-};
+});
 
-export const Text: Story = {
+export const Text = meta.story({
   parameters: {
     docs: {
       description: {
@@ -107,9 +104,9 @@ export const Text: Story = {
     children: "Reset",
     variant: "text",
   },
-};
+});
 
-export const FullWidth: Story = {
+export const FullWidth = meta.story({
   parameters: {
     docs: {
       description: {
@@ -121,9 +118,9 @@ export const FullWidth: Story = {
     children: "Continue",
     fullWidth: true,
   },
-};
+});
 
-export const Disabled: Story = {
+export const Disabled = meta.story({
   parameters: {
     docs: {
       description: {
@@ -135,9 +132,9 @@ export const Disabled: Story = {
     children: "Unavailable",
     disabled: true,
   },
-};
+});
 
-export const CssCheck: Story = {
+export const CssCheck = meta.story({
   parameters: {
     docs: {
       disable: true,
@@ -151,4 +148,4 @@ export const CssCheck: Story = {
 
     await expect(getComputedStyle(button).backgroundColor).toBe("rgb(57, 125, 246)");
   },
-};
+});
