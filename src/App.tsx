@@ -1,8 +1,11 @@
+import { Button } from "./components/Buttons";
+import styles from "./App.module.css";
+
 function App() {
   return (
-    <>
-      <h1>app</h1>
-    </>
+    <main className={styles.page}>
+      <Button variant={"secondary"}>Button</Button>
+    </main>
   );
 }
 
