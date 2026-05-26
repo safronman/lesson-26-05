@@ -1,11 +1,11 @@
-# @safro/booster-ui
+# @safronman/booster-ui
 
 React UI components for Booster lessons.
 
 ## Install
 
 ```sh
-pnpm add @safro/booster-ui
+pnpm add @safronman/booster-ui
 ```
 
 The package expects React, React DOM, and Base UI to be installed in the consuming app:
@@ -19,13 +19,13 @@ pnpm add react react-dom @base-ui/react
 Import the package styles once in your app entry point:
 
 ```ts
-import '@safro/booster-ui/style.css'
+import '@safronman/booster-ui/style.css'
 ```
 
 Use components from the package entry point:
 
 ```tsx
-import { Button, RadioGroup, RadioGroupItem } from '@safro/booster-ui'
+import { Button, RadioGroup, RadioGroupItem } from '@safronman/booster-ui'
 
 export function Example() {
   return (

@@ -1,5 +1,5 @@
 {
-  "name": "@safro/booster-ui",
+  "name": "@safronman/booster-ui",
   "version": "0.1.1",
   "description": "React UI components for Booster lessons.",
   "type": "module",
