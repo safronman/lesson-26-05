@@ -1,68 +1,60 @@
-import { useId, useState } from "react";
-import type { ChangeEvent, InputHTMLAttributes } from "react";
+import { Radio } from "@base-ui/react/radio";
+import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group";
+import clsx from "clsx";
+import type { ReactNode } from "react";
 import styles from "./RadioGroup.module.css";
 
-type RadioOption = {
-  label: string;
-  value: string;
-  disabled?: boolean;
-};
-
 type RadioGroupProps = {
-  options: RadioOption[];
-  name?: string;
-  value?: string;
-  defaultValue?: string;
-  disabled?: boolean;
-  onValueChange?: (value: string) => void;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "defaultValue" | "name" | "onChange" | "disabled">;
+  children: ReactNode;
+  className?: BaseRadioGroup.Props<string>["className"];
+} & Omit<BaseRadioGroup.Props<string>, "children" | "className">;
 
-export function RadioGroup({
-  options,
-  name,
-  value,
-  defaultValue,
-  disabled = false,
-  onValueChange,
-  ...inputProps
-}: RadioGroupProps) {
-  const generatedName = useId();
-  const groupName = name ?? generatedName;
-  const [internalValue, setInternalValue] = useState(defaultValue ?? "");
-  const selectedValue = value ?? internalValue;
+type RadioGroupItemProps = {
+  children: ReactNode;
+  className?: string;
+  controlClassName?: Radio.Root.Props<string>["className"];
+  indicatorClassName?: Radio.Indicator.Props["className"];
+} & Omit<Radio.Root.Props<string>, "children" | "className">;
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const nextValue = event.target.value;
+function getGroupClassName(state: BaseRadioGroup.State, className: RadioGroupProps["className"]) {
+  const externalClassName = typeof className === "function" ? className(state) : className;
 
-    if (value === undefined) {
-      setInternalValue(nextValue);
-    }
+  return clsx(styles.group, externalClassName);
+}
 
-    onValueChange?.(nextValue);
-  };
+function getControlClassName(state: Radio.Root.State, className: RadioGroupItemProps["controlClassName"]) {
+  const externalClassName = typeof className === "function" ? className(state) : className;
 
+  return clsx(styles.control, externalClassName);
+}
+
+function getIndicatorClassName(state: Radio.Indicator.State, className: RadioGroupItemProps["indicatorClassName"]) {
+  const externalClassName = typeof className === "function" ? className(state) : className;
+
+  return clsx(styles.indicator, externalClassName);
+}
+
+export function RadioGroup({ children, className, ...props }: RadioGroupProps) {
   return (
-    <div className={styles.group} role="radiogroup">
-      {options.map((option) => {
-        const isDisabled = disabled || option.disabled;
+    <BaseRadioGroup className={(state) => getGroupClassName(state, className)} {...props}>
+      {children}
+    </BaseRadioGroup>
+  );
+}
 
-        return (
-          <label className={styles.item} key={option.value}>
-            <input
-              {...inputProps}
-              checked={selectedValue === option.value}
-              className={styles.input}
-              disabled={isDisabled}
-              name={groupName}
-              onChange={handleChange}
-              type="radio"
-              value={option.value}
-            />
-            <span className={styles.control} aria-hidden="true" />
-            <span className={styles.label}>{option.label}</span>
-          </label>
-        );
-      })}
-    </div>
+export function RadioGroupItem({
+  children,
+  className,
+  controlClassName,
+  indicatorClassName,
+  ...props
+}: RadioGroupItemProps) {
+  return (
+    <label className={clsx(styles.item, className)}>
+      <Radio.Root className={(state) => getControlClassName(state, controlClassName)} {...props}>
+        <Radio.Indicator className={(state) => getIndicatorClassName(state, indicatorClassName)} />
+      </Radio.Root>
+      <span className={styles.label}>{children}</span>
+    </label>
   );
 }

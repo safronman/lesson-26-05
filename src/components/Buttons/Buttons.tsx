@@ -21,8 +21,22 @@ function getClassName(
   return clsx(styles.button, styles[variant], fullWidth && styles.fullWidth, externalClassName);
 }
 
-export function Button({ variant = "primary", fullWidth = false, className, type = "button", ...props }: ButtonProps) {
+export function Button({
+  variant = "primary",
+  fullWidth = false,
+  className,
+  nativeButton,
+  type,
+  ...props
+}: ButtonProps) {
+  const buttonType = type ?? (nativeButton === false ? undefined : "button");
+
   return (
-    <BaseButton className={(state) => getClassName(state, variant, fullWidth, className)} type={type} {...props} />
+    <BaseButton
+      className={(state) => getClassName(state, variant, fullWidth, className)}
+      nativeButton={nativeButton}
+      type={buttonType}
+      {...props}
+    />
   );
 }
